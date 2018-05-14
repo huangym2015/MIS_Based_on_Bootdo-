@@ -6,6 +6,7 @@ import com.bootdo.common.controller.BaseController;
 import com.bootdo.common.utils.R;
 import com.bootdo.system.domain.RoleDO;
 import com.bootdo.system.service.RoleService;
+import com.bootdo.system.shiro.UserRealm;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,9 @@ public class RoleController extends BaseController {
 	String prefix = "system/role";
 	@Autowired
 	RoleService roleService;
+
+	@Autowired
+	UserRealm userRealm;
 
 	@RequiresPermissions("sys:role:role")
 	@GetMapping()
@@ -71,6 +75,10 @@ public class RoleController extends BaseController {
 	@PostMapping("/update")
 	@ResponseBody()
 	R update(RoleDO role) {
+
+		//清除shiro权限缓存
+		userRealm.clearCached();
+
 		if (Constant.DEMO_ACCOUNT.equals(getUsername())) {
 			return R.error(1, "演示系统不允许修改,完整体验请部署程序");
 		}

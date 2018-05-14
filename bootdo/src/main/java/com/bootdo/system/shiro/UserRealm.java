@@ -6,6 +6,7 @@ import java.util.Set;
 
 import com.bootdo.common.config.ApplicationContextRegister;
 import com.bootdo.system.domain.UserToken;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -67,6 +68,13 @@ public class UserRealm extends AuthorizingRealm {
 		}
 		SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user, password, getName());
 		return info;
+	}
+
+
+	//清除缓存
+	public void clearCached() {
+		PrincipalCollection principals = SecurityUtils.getSubject().getPrincipals();
+		super.clearCache(principals);
 	}
 
 }

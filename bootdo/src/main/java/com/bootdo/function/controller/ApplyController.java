@@ -1,8 +1,11 @@
 package com.bootdo.function.controller;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import com.bootdo.common.controller.BaseController;
+import com.bootdo.function.service.ITestOracleService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -31,9 +34,12 @@ import com.bootdo.common.utils.R;
  
 @Controller
 @RequestMapping("/function/apply")
-public class ApplyController {
+public class ApplyController extends BaseController{
 	@Autowired
 	private ApplyService applyService;
+
+	@Autowired
+	private ITestOracleService iTestOracleService;
 	
 	@GetMapping()
 	@RequiresPermissions("function:apply:apply")
@@ -47,9 +53,12 @@ public class ApplyController {
 	public PageUtils list(@RequestParam Map<String, Object> params){
 		//查询列表数据
         Query query = new Query(params);
+		query.put("userId", getUserId());//在参数表里过滤用户id，只返回当前用户的record
 		List<ApplyDO> applyList = applyService.list(query);
 		int total = applyService.count(query);
 		PageUtils pageUtils = new PageUtils(applyList, total);
+		//往oracle插入一条记录，测试多数据源
+		iTestOracleService.insert();
 		return pageUtils;
 	}
 	
@@ -74,6 +83,11 @@ public class ApplyController {
 	@PostMapping("/save")
 	@RequiresPermissions("function:apply:add")
 	public R save( ApplyDO apply){
+		apply.setUserId(getUserId());
+		apply.setUsername(getUsername());
+		apply.setDeptId(getUser().getDeptId());
+		apply.setGmtCreate(new Date());
+		apply.setGmtModified(new Date());
 		if(applyService.save(apply)>0){
 			return R.ok();
 		}
@@ -86,6 +100,7 @@ public class ApplyController {
 	@RequestMapping("/update")
 	@RequiresPermissions("function:apply:edit")
 	public R update( ApplyDO apply){
+		apply.setGmtModified(new Date());
 		applyService.update(apply);
 		return R.ok();
 	}

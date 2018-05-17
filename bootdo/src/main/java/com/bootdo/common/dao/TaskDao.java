@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
 /**
  * 
@@ -17,7 +18,8 @@ import org.apache.ibatis.annotations.Mapper;
 public interface TaskDao {
 
 	TaskDO get(Long id);
-	
+
+	//@Select("select * from sys_task")
 	List<TaskDO> list(Map<String,Object> map);
 	
 	int count(Map<String,Object> map);

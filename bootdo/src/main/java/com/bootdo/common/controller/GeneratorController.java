@@ -52,6 +52,7 @@ public class GeneratorController {
 		IOUtils.write(data, response.getOutputStream());
 	}
 
+
 	@RequestMapping("/batchCode")
 	public void batchCode(HttpServletRequest request, HttpServletResponse response, String tables) throws IOException {
 		String[] tableNames = new String[] {};

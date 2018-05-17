@@ -84,6 +84,8 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/druid/**", "anon");
         filterChainDefinitionMap.put("/upload/**", "anon");
         filterChainDefinitionMap.put("/files/**", "anon");
+        filterChainDefinitionMap.put("/login", "anon");
+        filterChainDefinitionMap.put("/test", "anon");//测试oracle数据库
         filterChainDefinitionMap.put("/logout", "logout");
         filterChainDefinitionMap.put("/", "anon");
         filterChainDefinitionMap.put("/blog", "anon");

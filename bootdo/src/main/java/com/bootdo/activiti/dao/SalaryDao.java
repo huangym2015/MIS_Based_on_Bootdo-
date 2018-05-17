@@ -3,6 +3,7 @@ package com.bootdo.activiti.dao;
 import com.bootdo.activiti.domain.SalaryDO;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.lang.annotation.Target;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +13,7 @@ import java.util.Map;
  * @email 1992lcg@163.com
  * @date 2017-11-25 13:28:58
  */
+
 @Mapper
 public interface SalaryDao {
 
@@ -28,4 +30,5 @@ public interface SalaryDao {
 	int remove(String id);
 	
 	int batchRemove(String[] ids);
+
 }

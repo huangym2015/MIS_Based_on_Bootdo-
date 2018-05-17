@@ -28,6 +28,8 @@ spring:
     type: ehcache
     ehcache:
       config: config/ehcache.xml
+
+#此处mybatis设置在多数据源的情况下失效，需要在sessionfactory中配置
 mybatis:
   configuration:
     map-underscore-to-camel-case: true

@@ -9,17 +9,18 @@
 
 	<select id="list" resultType="com.bootdo.function.domain.ApplyDO">
 		select `apply_id`,`apply_name`,`apply_content`,`user_id`,`username`,`dept_id`,`email`,`mobile`,`gmt_create`,`gmt_modified` from function_apply
-        <where>  
-		  		  <if test="applyId != null and applyId != ''"> and apply_id = #{applyId} </if>
-		  		  <if test="applyName != null and applyName != ''"> and apply_name = #{applyName} </if>
-		  		  <if test="applyContent != null and applyContent != ''"> and apply_content = #{applyContent} </if>
-		  		  <if test="userId != null and userId != ''"> and user_id = #{userId} </if>
-		  		  <if test="username != null and username != ''"> and username = #{username} </if>
-		  		  <if test="deptId != null and deptId != ''"> and dept_id = #{deptId} </if>
-		  		  <if test="email != null and email != ''"> and email = #{email} </if>
-		  		  <if test="mobile != null and mobile != ''"> and mobile = #{mobile} </if>
-		  		  <if test="gmtCreate != null and gmtCreate != ''"> and gmt_create = #{gmtCreate} </if>
-		  		  <if test="gmtModified != null and gmtModified != ''"> and gmt_modified = #{gmtModified} </if>
+        <where>
+			<if test="userId != null and userId != ''"> and user_id = #{userId} </if>
+
+		  		  <!--<if test="applyId != null and applyId != ''"> and apply_id = #{applyId} </if>-->
+		  		  <!--<if test="applyName != null and applyName != ''"> and apply_name = #{applyName} </if>-->
+		  		  <!--<if test="applyContent != null and applyContent != ''"> and apply_content = #{applyContent} </if>-->
+		  		  <!--<if test="username != null and username != ''"> and username = #{username} </if>-->
+		  		  <!--<if test="deptId != null and deptId != ''"> and dept_id = #{deptId} </if>-->
+		  		  <!--<if test="email != null and email != ''"> and email = #{email} </if>-->
+		  		  <!--<if test="mobile != null and mobile != ''"> and mobile = #{mobile} </if>-->
+		  		  <!--<if test="gmtCreate != null and gmtCreate != ''"> and gmt_create = #{gmtCreate} </if>-->
+		  		  <!--<if test="gmtModified != null and gmtModified != ''"> and gmt_modified = #{gmtModified} </if>-->
 		  		</where>
         <choose>
             <when test="sort != null and sort.trim() != ''">

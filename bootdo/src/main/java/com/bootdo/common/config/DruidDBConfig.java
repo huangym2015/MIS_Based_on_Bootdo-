@@ -2,16 +2,21 @@ package com.bootdo.common.config;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionFactoryBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 import javax.sql.DataSource;
+import java.io.IOException;
 import java.sql.SQLException;
 
 /**
@@ -21,18 +26,20 @@ import java.sql.SQLException;
 @Configuration
 public class DruidDBConfig {
     private Logger logger = LoggerFactory.getLogger(DruidDBConfig.class);
-    @Value("${spring.datasource.url}")
+    //mysql的连接信息
+    @Value("${spring.datasource.mysql.url}")
     private String dbUrl;
 
-    @Value("${spring.datasource.username}")
+    @Value("${spring.datasource.mysql.username}")
     private String username;
 
-    @Value("${spring.datasource.password}")
+    @Value("${spring.datasource.mysql.password}")
     private String password;
 
-    @Value("${spring.datasource.driverClassName}")
+    @Value("${spring.datasource.mysql.driverClassName}")
     private String driverClassName;
 
+    //configration
     @Value("${spring.datasource.initialSize}")
     private int initialSize;
 
@@ -75,7 +82,8 @@ public class DruidDBConfig {
     @Value("{spring.datasource.connectionProperties}")
     private String connectionProperties;
 
-    @Bean(initMethod = "init", destroyMethod = "close")   //声明其为Bean实例
+
+    @Bean(name = "mysqlDataSource",initMethod = "init", destroyMethod = "close")   //声明其为Bean实例
     @Primary  //在同样的DataSource中，首先使用被标注的DataSource
     public DataSource dataSource() {
         DruidDataSource datasource = new DruidDataSource();
@@ -107,6 +115,25 @@ public class DruidDBConfig {
 
         return datasource;
     }
+
+    @Bean(name = "mysqlSessionFactory")
+    @Primary
+    public SqlSessionFactory mysqlSessionFactory(@Qualifier("mysqlDataSource") DataSource dataSource) throws IOException {
+        SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
+        bean.setDataSource(dataSource);
+        bean.setMapperLocations(
+                new PathMatchingResourcePatternResolver()
+                        .getResources("classpath*:mybatis/**/*Mapper.xml"));
+        try {
+            SqlSessionFactory sqlSessionFactory = bean.getObject();
+            sqlSessionFactory.getConfiguration().setMapUnderscoreToCamelCase(true);
+            return sqlSessionFactory;
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            throw new RuntimeException(e);
+        }
+    }
+
 
     @Bean
     public ServletRegistrationBean druidServlet() {

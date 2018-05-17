@@ -4,13 +4,21 @@ logging:
   level:
     root: info
     com.bootdo: debug
+
+#mysql
 spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
-    driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/bootdo?useUnicode=true&characterEncoding=utf8
-    username: root
-    password: root
+    oracle:
+      driverClassName: oracle.jdbc.driver.OracleDriver
+      url: jdbc:oracle:thin:@192.168.43.9:1521:orcl
+      username: ian_dev
+      password: ian_dev
+    mysql:
+      driverClassName: com.mysql.jdbc.Driver
+      url: jdbc:mysql://127.0.0.1:3306/bootdo?useUnicode=true&characterEncoding=utf8
+      username: root
+      password: root
     initialSize: 1
     minIdle: 3
     maxActive: 20

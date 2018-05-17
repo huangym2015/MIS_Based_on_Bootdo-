@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * 
@@ -17,7 +18,7 @@ import org.apache.ibatis.annotations.Mapper;
 public interface ApplyDao {
 
 	ApplyDO get(Long applyId);
-	
+
 	List<ApplyDO> list(Map<String, Object> map);
 	
 	int count(Map<String, Object> map);
@@ -29,4 +30,5 @@ public interface ApplyDao {
 	int remove(Long apply_id);
 	
 	int batchRemove(Long[] applyIds);
+
 }

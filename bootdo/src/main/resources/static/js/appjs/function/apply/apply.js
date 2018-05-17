@@ -23,8 +23,9 @@ function load() {
 						singleSelect : false, // 设置为true将禁止多选
 						// contentType : "application/x-www-form-urlencoded",
 						// //发送到服务器的数据编码类型
-						pageSize : 10, // 如果设置了分页，每页数据条数
-						pageNumber : 1, // 如果设置了分布，首页页码
+						pageSize : 5, // 如果设置了分页，每页数据条数
+                        pageList:[5,15,100,300,500], //设置每页显示多少条，默认为pageList:[10,25,50,100]
+						pageNumber : 1, // 如果设置了分页，首页页码
 						//search : true, // 是否显示搜索框
 						showColumns : false, // 是否显示内容下拉框（选择显示的列）
 						sidePagination : "server", // 设置在哪里进行分页，可选值为"client" 或者 "server"
@@ -48,28 +49,31 @@ function load() {
 									checkbox : true
 								},
 																{
+                                    visible : false,
 									field : 'applyId', 
-									title : '' 
+									title : '申请ID'
 								},
 																{
 									field : 'applyName', 
-									title : '' 
+									title : '申请名称'
 								},
 																{
 									field : 'applyContent', 
-									title : '' 
+									title : '申请内容'
 								},
 																{
+									visible : false,
 									field : 'userId', 
-									title : '' 
+									title : '用户ID'
 								},
 																{
 									field : 'username', 
 									title : '用户名' 
 								},
 																{
+                                    visible : false,
 									field : 'deptId', 
-									title : '' 
+									title : '部门ID'
 								},
 																{
 									field : 'email', 
@@ -84,6 +88,7 @@ function load() {
 									title : '创建时间' 
 								},
 																{
+
 									field : 'gmtModified', 
 									title : '修改时间' 
 								},

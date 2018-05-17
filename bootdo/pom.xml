@@ -61,6 +61,11 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc6</artifactId>
+            <version>11.2.0.3</version>
+        </dependency>
+        <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>
             <version>3.4.4</version>
@@ -233,6 +238,8 @@
             <!--<scope>provided</scope>-->
         <!--</dependency>-->
     </dependencies>
+
+
     <build>
         <plugins>
             <plugin>
@@ -240,6 +247,15 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <executable>true</executable>
+                    <outputDirectory>${basedir}/target/classes</outputDirectory>
+                    <resources>
+                        <resource>
+                            <directory>${basedir}/src/main/java</directory>
+                            <includes>
+                                <include>**/*.xml</include>
+                            </includes>
+                        </resource>
+                    </resources>
                 </configuration>
             </plugin>
         </plugins>

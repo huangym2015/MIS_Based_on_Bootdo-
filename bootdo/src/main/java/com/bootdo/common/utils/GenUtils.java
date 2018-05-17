@@ -184,11 +184,11 @@ public class GenUtils {
         }
 
         if (template.contains("Dao.java.vm")) {
-            return packagePath + "dao" + File.separator + className + "Dao.java";
+            return packagePath + "domain" + File.separator + className + "Dao.java";
         }
 
 //		if(template.contains("Mapper.java.vm")){
-//			return packagePath + "dao" + File.separator + className + "Mapper.java";
+//			return packagePath + "domain" + File.separator + className + "Mapper.java";
 //		}
 
         if (template.contains("Service.java.vm")) {
